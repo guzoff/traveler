@@ -8,32 +8,31 @@ import static org.junit.Assert.*;
 public class CityTest {
     
     private City city;
-    private Station station;
     
     @Before
     public void setup() {
-        city = new City();
-        station = new Station();
+        city = new City("Minsk");
     }
     
     @Test
     public void testAddValidStationSuccess() {
-        city.addStation(station);
+        Station station = city.addStation(StationType.BUS);
         assertTrue(containsStation(city, station));
         assertEquals(city, station.getCity());
     }
     
     @Test
     public void testRemoveValidStationSuccess() {
-        city.addStation(station);
+        Station station = city.addStation(StationType.RAILWAY);
         city.removeStation(station);
         assertFalse(containsStation(city, station));
     }
     
     @Test
-    public void testRemoveStationFromEmptyStationsSuccess() {
+    public void testRemoveStationFromEmptyStationsSetSuccess() {
+        Station station = new Station(new City("Kyiv"), StationType.RAILWAY);
         city.removeStation(station);
-        assertFalse(containsStation(city, station));
+        assertEquals(city.getStations().size(), 0);
     }
     
     @Test(expected = NullPointerException.class)
@@ -44,7 +43,7 @@ public class CityTest {
     
     @Test
     public void testRemoveNullStationResultsNoChanges() {
-        city.addStation(station);
+        city.addStation(StationType.AIRPORT);
         Set stations = city.getStations();
         city.removeStation(null);
         assertEquals(stations, city.getStations());
@@ -52,8 +51,8 @@ public class CityTest {
     
     @Test
     public void testAddDuplicateStationFailure() {
-        city.addStation(station);
-        city.addStation(station);
+        city.addStation(StationType.BUS);
+        city.addStation(StationType.BUS);
         assertEquals(city.getStations().size(), 1);
     }
 
