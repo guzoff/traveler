@@ -1,6 +1,5 @@
 package org.guzoff.traveler.model.entity;
 
-import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -24,14 +23,16 @@ public class CityTest {
     @Test
     public void testRemoveValidStationSuccess() {
         Station station = city.addStation(StationType.RAILWAY);
-        city.removeStation(station);
+        boolean removed = city.removeStation(station);
+        assertEquals(removed, true);
         assertFalse(containsStation(city, station));
     }
     
     @Test
     public void testRemoveStationFromEmptyStationsSetSuccess() {
         Station station = new Station(new City("Kyiv"), StationType.RAILWAY);
-        city.removeStation(station);
+        boolean removed = city.removeStation(station);
+        assertEquals(removed, false);
         assertEquals(city.getStations().size(), 0);
     }
     
@@ -42,17 +43,20 @@ public class CityTest {
     }
     
     @Test
-    public void testRemoveNullStationResultsNoChanges() {
-        city.addStation(StationType.AIRPORT);
-        Set stations = city.getStations();
-        city.removeStation(null);
-        assertEquals(stations, city.getStations());
+    public void testRemoveNullStationResultNoChanges() {
+        Station station = city.addStation(StationType.AIRPORT);
+        boolean removed = city.removeStation(null);
+        assertEquals(removed, false);
+        assertTrue(containsStation(city, station));
+        assertEquals(city.getStations().size(), 1);
     }
     
     @Test
-    public void testAddDuplicateStationFailure() {
-        city.addStation(StationType.BUS);
-        city.addStation(StationType.BUS);
+    public void testAddDuplicateStationResultNoChanges() {
+        Station station1 = city.addStation(StationType.BUS);
+        Station station2 = city.addStation(StationType.BUS);
+        assertTrue(containsStation(city, station1));
+        assertTrue(containsStation(city, station2));
         assertEquals(city.getStations().size(), 1);
     }
 

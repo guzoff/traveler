@@ -26,10 +26,11 @@ public class City extends AbstractEntity {
         return station;
     }
 
-    public void removeStation(final Station station) {
+    public boolean removeStation(final Station station) {
         if (stations != null) {
-            stations.remove(station);
+            return stations.remove(station);
         }
+        return false;
     }
     
     public Set<Station> getStations() {
