@@ -6,11 +6,11 @@ import lombok.Setter;
 
 public class Station extends AbstractEntity {
 
-    @Getter private City city;
+    @Getter private final City city;
     @Getter @Setter private Address address;
     @Getter @Setter private String phone;
     @Getter @Setter private GeoLocation geoLocation;
-    @Getter private StationType stationType;
+    @Getter private final StationType stationType;
     
     //should be called by City object
     Station(City city, StationType stationType) {
