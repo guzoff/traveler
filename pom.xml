@@ -6,12 +6,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.guzoff</groupId>
     <artifactId>traveler</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.5</version>
     <packaging>pom</packaging>
     <modules>
         <module>traveler-presentation</module>
         <module>traveler-model</module>
         <module>traveler-persistence</module>
+		<module>traveler-service</module>
     </modules>
     
     <properties>
@@ -20,6 +21,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <junit.version>4.12</junit.version>
         <jacoco.version>0.7.9</jacoco.version>
+		<jersey.version>2.25</jersey.version>
     </properties>
     
     <dependencies>
